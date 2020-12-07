@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-// import { ThemeProvider } from '@emotion/react';
 
 const Header = () => (
     <HeaderContainer>
@@ -12,7 +11,7 @@ const HeaderContainer = styled.div`
     width: 100%;
     height: 90px;
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
     padding: 12px;
 `;

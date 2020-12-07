@@ -21,15 +21,8 @@ var db = firebase.firestore();
 
 const firestore = {
     add : (address) => {
-        console.log('add: ', address);
         return new Promise(resolve => {
-            db.collection("addresses").add({
-                name: "Ada Lovelace",
-                addressLine: "1234 Here Lane",
-                city: "Oakland",
-                state: "CA",
-                zipCode: "12323"
-            })
+            db.collection("addresses").add(address)
             .then(function(docRef) {
                 console.log("Document written with ID: ", docRef.id);
                 resolve(docRef.id);

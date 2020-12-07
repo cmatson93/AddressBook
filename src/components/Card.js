@@ -1,14 +1,14 @@
 import styled from '@emotion/styled';
 
-const Card = ({ step }) => {
+const Card = ({ step, name }) => {
     const words = step === 'submitted' ? {
-        heading: 'Submitted!',
-        subHeading: 'Thanks for sharing your address with Christina.',
+        heading: 'Submitted 🙌!',
+        subHeading: `Thanks ${name ? name : ''} for sharing your address with Christina.`,
         text: "If you'd ever like a virtual address book for yourself just email Christina at cmatson93@gmail.com"
     } : {
         heading: 'Welcome 👋',
         subHeading: 'Christina has sent you this link so you can input your address into her own personal address book.',
-        text: "Your personal information will be secure in Christina’s own personal database and shared with no one else. "
+        text: 'Thanks for taking the time to add your information, you may be rewareded with some good old snail mail one day 😉.'
     };
 
     return (

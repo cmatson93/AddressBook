@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styled from '@emotion/styled';
 import { ThemeProvider } from '@emotion/react';
 import Header from './Header';
 import Input from './components/Input';
 import Button from './components/Button';
+import SecondaryButton from './components/SecondaryButton';
 import ResultForm from './ResultForm';
 import Card from './components/Card';
 
@@ -96,10 +97,6 @@ function App() {
   const [state, setState] = useState(null);
   const [zipCode, setZipCode] = useState(null);
 
-  useEffect(() => {
-    console.log(currentIndex, steps[currentIndex]);
-  }, [currentIndex])
-
   return (
     <ThemeProvider theme={theme}>
       <Container>
@@ -110,32 +107,32 @@ function App() {
             {
               steps[currentIndex] === 'name' ?
                 <Input 
-                  heading='Lets start with your name'
-                  label='Name'
+                  heading='Name'
+                  label='Patrick Mahomes'
                   value={name}
                   handleChange={setName}
                 /> : steps[currentIndex] === 'addressLine' ? 
                   <Input 
-                    heading='Your house number and street'
-                    label='Address Line'
+                    heading='Address'
+                    label='1 Arrowhead Drive'
                     value={addressLine}
                     handleChange={setAddressLine}
                   /> : steps[currentIndex] === 'city' ? 
                     <Input 
-                      heading='What city do you live in?'
-                      label='City'
+                      heading='City'
+                      label='Kansas City'
                       value={city}
                       handleChange={setCity}
                     /> : steps[currentIndex] === 'state' ? 
                       <Input
-                        heading='Almost there.. your state'
-                        label='State'
+                        heading='State'
+                        label='MO'
                         value={state}
                         handleChange={setState}
                       /> : steps[currentIndex] === 'zipCode' ?
                         <Input 
-                          heading='Last but not least.. Zip Code'
-                          label='Zip Code'
+                          heading='Zip Code'
+                          label='64129'
                           value={zipCode}
                           handleChange={setZipCode}
                         /> : null
@@ -163,8 +160,12 @@ function App() {
                     currentIndex={currentIndex}
                     setCurrentIndex={setCurrentIndex}
                   /> : steps[currentIndex] === 'submitted' ? 
-                    <Card step={steps[currentIndex]} /> :
+                    <Card step={steps[currentIndex]} name={name}/> :
                     <ButtonContainer>
+                      <SecondaryButton
+                        text='Back'
+                        handleClick={() => setCurrentIndex(currentIndex - 1)}
+                      />
                       <Button 
                         text='Next'
                         handleClick={() => setCurrentIndex(currentIndex + 1)}

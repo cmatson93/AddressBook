@@ -20,8 +20,7 @@ const ResultForm = ({
             'state' : state,
             'zipCode' : zipCode
         };
-        const response = await firestore.add(address);
-        console.log('response: ', response);
+        await firestore.add(address);
         setCurrentIndex(currentIndex + 1)
     };
 
