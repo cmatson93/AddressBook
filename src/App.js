@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { ThemeProvider } from '@emotion/react';
 import Header from './Header';
 import Input from './components/Input';
 import Button from './components/Button';
 import ResultForm from './ResultForm';
+import Card from './components/Card';
 
 const theme = {
   colors: {
@@ -44,6 +45,24 @@ const theme = {
       textAlign: 'left',
       color: '#FFFFFF'
     }, 
+    subHeading: {
+      fontSize: '24px',
+      fontStyle: 'normal',
+      fontWeight: '700',
+      lineHeight: '30px',
+      letterSpacing: '0em',
+      textAlign: 'left',
+      color: '#2B2C54'
+    },
+    description: {
+      fontSize: '22px',
+      fontStyle: 'normal',
+      fontWeight: '400',
+      lineHeight: '26px',
+      letterSpacing: '0em',
+      textAlign: 'left',
+      color: '#E5E5E5'
+    },
     label: {
       fontSize: '22px',
       fontStyle: 'normal',
@@ -59,11 +78,14 @@ const theme = {
 
 function App() {
   const steps = [
+    'welcome',
     'name',
     'addressLine',
     'city',
     'state',
-    'zipCode'
+    'zipCode',
+    'reviewing',
+    'submitted'
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -74,12 +96,16 @@ function App() {
   const [state, setState] = useState(null);
   const [zipCode, setZipCode] = useState(null);
 
+  useEffect(() => {
+    console.log(currentIndex, steps[currentIndex]);
+  }, [currentIndex])
+
   return (
     <ThemeProvider theme={theme}>
       <Container>
         <Header />
           <FormContainer
-            results={currentIndex === steps.length ? 'true' : 'false'}
+            results={steps[currentIndex] === 'reviewing' ? 'true' : steps[currentIndex] === 'welcome' ? 'true' : 'false'}
           >
             {
               steps[currentIndex] === 'name' ?
@@ -115,25 +141,35 @@ function App() {
                         /> : null
             }
             {
-              currentIndex === steps.length ? 
-                <ResultForm
-                  name={name}
-                  setName={setName}
-                  addressLine={addressLine}
-                  setAddressLine={setAddressLine}
-                  city={city}
-                  setCity={setCity}
-                  state={state}
-                  setState={setState}
-                  zipCode={zipCode}
-                  setZipCode={setZipCode}
-                /> :
-                <ButtonContainer>
-                  <Button 
-                    text='Next'
-                    handleClick={() => setCurrentIndex(currentIndex + 1)}
-                  ></Button>
-                </ButtonContainer>
+              steps[currentIndex] === 'welcome' ? 
+                <><Card step={steps[currentIndex]}/><ButtonContainer>
+                <Button 
+                  text='Start'
+                  handleClick={() => setCurrentIndex(currentIndex + 1)}
+                ></Button>
+              </ButtonContainer></> :
+                steps[currentIndex] === 'reviewing' ? 
+                  <ResultForm
+                    name={name}
+                    setName={setName}
+                    addressLine={addressLine}
+                    setAddressLine={setAddressLine}
+                    city={city}
+                    setCity={setCity}
+                    state={state}
+                    setState={setState}
+                    zipCode={zipCode}
+                    setZipCode={setZipCode}
+                    currentIndex={currentIndex}
+                    setCurrentIndex={setCurrentIndex}
+                  /> : steps[currentIndex] === 'submitted' ? 
+                    <Card step={steps[currentIndex]} /> :
+                    <ButtonContainer>
+                      <Button 
+                        text='Next'
+                        handleClick={() => setCurrentIndex(currentIndex + 1)}
+                      ></Button>
+                    </ButtonContainer>
             }
           </FormContainer>
       </Container>

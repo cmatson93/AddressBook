@@ -1,16 +1,18 @@
 import styled from '@emotion/styled';
 import Input from './components/Input';
 import Button from './components/Button';
+import firestore from './firestore/index.js';
 
 const ResultForm = ({ 
     name, setName, 
     addressLine, setAddressLine,
     city, setCity, 
     state, setState, 
-    zipCode, setZipCode 
+    zipCode, setZipCode,
+    currentIndex, setCurrentIndex 
 }) => {
     
-    const handleSubmitForm = () => {
+    const handleSubmitForm = async () => {
         const address = {
             'name' : name,
             'addressLine' : addressLine,
@@ -18,7 +20,9 @@ const ResultForm = ({
             'state' : state,
             'zipCode' : zipCode
         };
-        console.log(address);
+        const response = await firestore.add(address);
+        console.log('response: ', response);
+        setCurrentIndex(currentIndex + 1)
     };
 
     return (
