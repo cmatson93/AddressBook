@@ -189,6 +189,9 @@ const FormContainer = styled.div`
   padding: 32px;
   margin-top: ${props => props.results === 'true' ? '50px' : '110px'};
   padding-top: ${props => props.results === 'true' ? '0' : '32px'};
+  @media (min-width: 800px) {
+    padding: 32px 25%;
+  }
 `;
 
 const ButtonContainer = styled.div`
